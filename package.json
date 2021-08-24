@@ -7,10 +7,9 @@
   ],
   "types": "./dist/__types__",
   "scripts": {
-    "generate": "",
-    "build": "yarn generate && ts-node ./tasks/run-build.ts",
-    "dev": "nodemon --watch src --delay 1 --exec 'ts-node' src/server.ts",
-    "start": "node ./dist/index.js",
+    "build": "ts-node ./tasks/run-build.ts",
+    "dev": "nodemon --watch src --delay 1 --exec ts-node src/server.ts",
+    "start": "node ./dist/server.js",
     "test": "jest --detectOpenHandles --forceExit"
   },
   "author": {
@@ -28,9 +27,10 @@
     "nodemon": "^2.0.7",
     "prettier": "2.2.1",
     "pretty-quick": "^3.1.0",
+    "sqlite3": "5.0.2",
     "supertest": "^6.1.3",
     "ts-jest": "^26.5.6",
-    "ts-node": "^9.1.1",
+    "ts-node": "9.1.1",
     "typescript": "^4.2.4"
   },
   "dependencies": {
@@ -39,12 +39,15 @@
     "@types/graphql-fields": "^1.3.3",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
+    "install": "0.13.0",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
     "koa-compress": "^5.0.1",
     "koa-helmet": "^6.1.0",
     "koa-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
+    "sequelize": "6.6.5",
+    "sequelize-cli": "6.2.0",
     "winston": "^3.3.3"
   },
   "husky": {

@@ -1,5 +1,8 @@
 import logger from './logger'
-import app, { host, port } from './app'
+import app from './app'
+
+export const host = process.env.HOST || '127.0.0.1'
+export const port: number = Number.parseInt(process.env.PORT) || 5000
 
 async function start() {
   app.listen(port, () => {
