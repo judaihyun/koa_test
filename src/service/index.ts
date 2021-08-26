@@ -1,17 +1,10 @@
 import Models from '../db/models';
 import logger from '../logger';
-import { context } from 'koa';
 import { Op, QueryTypes } from 'sequelize';
 import { isValid } from '../utils/isValid';
 import { generateToken } from '../lib/jwt/jwt';
 
-/*
-    query결과에 데이터에 대한 raw, plain 설명
-    https://juhi.tistory.com/13
-*/
-
-
-export const login = async (ctx:context) => {
+export const login = async (ctx:any) => {
     logger.info('[POST]--------login---------')
 
     const { id, password } = ctx.request.body;
@@ -51,11 +44,10 @@ export const login = async (ctx:context) => {
     logger.info('[POST-end]--------login---------')
 }
 
-export const getMovies = async (ctx:context) => {
+export const getMovies = async (ctx:any) => {
     logger.info('[GET]--------getMovies---------')
 
     //TODO login check
-
     try{
         const allMovie = await Models.movie.findAll({raw: true});
         console.log(allMovie);
@@ -75,7 +67,7 @@ export const getMovies = async (ctx:context) => {
 }
 
 
-export const getScreen = async (ctx:context) => {
+export const getScreen = async (ctx:any) => {
     logger.info('[GET]--------getScreen---------')
 
     //TODO login check
@@ -91,6 +83,11 @@ export const getScreen = async (ctx:context) => {
         const allScreen = await Models.sequelize.query(raw,{
             type:QueryTypes.SELECT
         });
+        if(!allScreen.length) {
+            ctx.response.status = 204;
+            ctx.body = 'no contents';
+            return;
+        }
         console.log(allScreen); 
         ctx.body = allScreen;
     }catch(e){
@@ -103,7 +100,7 @@ export const getScreen = async (ctx:context) => {
 }
 
 
-export const getSeat = async (ctx:context) => {
+export const getSeat = async (ctx:any) => {
     logger.info('[GET]--------getSeat---------');
 
     //TODO login check
@@ -137,7 +134,7 @@ export const getSeat = async (ctx:context) => {
 
 }
 
-export const preferSeat = async(ctx:context) => {
+export const preferSeat = async(ctx:any) => {
     logger.info('[POST]--------preferSeat---------');
 
     //TODO login check
@@ -176,7 +173,7 @@ export const preferSeat = async(ctx:context) => {
     }
 }
 
-export const ticketing = async(ctx:context) => {
+export const ticketing = async(ctx:any) => {
     logger.info('[POST]--------ticketing---------');
 
     //TODO login check
@@ -230,7 +227,7 @@ export const ticketing = async(ctx:context) => {
     }
 }
 
-export const ticketInfo = async(ctx:context) => {
+export const ticketInfo = async(ctx:any) => {
     logger.info('[GET]------ticket info-------');
 
     try{
