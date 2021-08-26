@@ -1,6 +1,5 @@
-import { context } from 'koa';
 
-export const checkLoggedIn = (ctx:context, next:context) => {
+export const checkLoggedIn = (ctx:any, next: () => void) => {
     console.log('checkLoggedIn')
       if(!ctx.request.user){
           ctx.response.status = 403;

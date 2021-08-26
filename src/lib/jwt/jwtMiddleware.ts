@@ -1,14 +1,15 @@
-import { context } from 'koa';
 import logger from '../../logger';
 import { verifyToken } from './jwt';
 
 
-export const jwtMiddleware = async (ctx:context, next:context) => {
+export const jwtMiddleware = async (ctx:any, next:any) => {
     logger.info('-------jwtMiddleware---------');
-
     const token = ctx.cookies.get('access_token');
+    logger.info('token ', token) 
     if(!token){
-        return next();
+        ctx.response.status = 403;
+        ctx.body = 'Unauthorized';
+        return;
     }
 
     try{
