@@ -10,6 +10,8 @@ ORM : sequelize
 ## 실행
 
 ``
+npm install
+npm run build
 npm run start
 ``
 http://localhost:5000
@@ -17,6 +19,9 @@ http://localhost:5000
 <br>
 ~~docker image build -t mycroft:1 .~~ <br>
 ~~docker container run -p 5000:5000 -it mycroft:1~~
+
+## swagger
+swagger: http://localhost:5000/api-docs <br>
 
 
 ## API
