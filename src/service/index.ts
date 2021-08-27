@@ -1,8 +1,8 @@
-import Models from '../db/models';
-import logger from '../logger';
-import { Op, QueryTypes } from 'sequelize';
+import Models from '../db/models'
+import logger from '../logger'
+import { Op, QueryTypes } from 'sequelize'
 import { isValid } from '../utils/isValid';
-import { generateToken } from '../lib/jwt/jwt';
+import { generateToken } from '../lib/jwt/jwt'
 
 export const login = async (ctx:any) => {
     logger.info('[POST]--------login---------')
@@ -17,16 +17,15 @@ export const login = async (ctx:any) => {
                 }
             }
         })
-        console.log('user : ',user);
         if(!user){
             ctx.response.status = 400;
-            // ctx.body = 'user not exists';
+            ctx.body = 'user not exists';
             return;
         }
 
         if(!isValid.password(user.password, password)){
             ctx.response.status = 401;
-            // ctx.body = 'password incorrect';
+            ctx.body = 'password incorrect';
             return;
         }
 
@@ -35,7 +34,6 @@ export const login = async (ctx:any) => {
             maxAge: 1000 * 60 * 60 * 24 * 4,
         })
 
-        console.log(token);
         ctx.body = 'login success';
 
     }catch(e){
@@ -50,7 +48,6 @@ export const getMovies = async (ctx:any) => {
     //TODO login check
     try{
         const allMovie = await Models.movie.findAll({raw: true});
-        console.log(allMovie);
         if(!allMovie.length) {
             ctx.response.status = 204;
             ctx.body = 'no contents';
@@ -88,7 +85,6 @@ export const getScreen = async (ctx:any) => {
             ctx.body = 'no contents';
             return;
         }
-        console.log(allScreen); 
         ctx.body = allScreen;
     }catch(e){
         logger.error(e);
@@ -113,7 +109,12 @@ export const getSeat = async (ctx:any) => {
     try{
 
         const { screen } = ctx.request.query;
-        console.log(screen);
+        if(!screen) {
+            ctx.response.status = 400;
+            ctx.body = 'screen_no does not exists';
+            return;
+        }
+
         const seat = await Models.sequelize.query(raw,{
             type:QueryTypes.SELECT,
             replacements: { screen_no: screen}
@@ -123,7 +124,6 @@ export const getSeat = async (ctx:any) => {
             ctx.body = 'no contents';
             return;
         }
-        console.log(seat); 
         ctx.body = seat;
     }catch(e){
         logger.error(e);
@@ -144,14 +144,12 @@ export const preferSeat = async(ctx:any) => {
      se.is_book from seat se, screen sc 
      where sc.screen_no = se.screen_no and sc.screen_no = :screen_no 
      and se.seat_name in (:seat) 
-     and se.is_book = 0`;
+     and se.is_book = 'N'`;
 
     try{
 
         const { prefer_seat } = ctx.request.body;
         const { screen } = ctx.request.query;
-        console.log('screen_no: ', screen);
-        console.log(prefer_seat);
         
         const seat = await Models.sequelize.query(raw,{
             type:QueryTypes.SELECT,
@@ -162,7 +160,6 @@ export const preferSeat = async(ctx:any) => {
             ctx.body = 'no contents';
             return;
         }
-        console.log(seat); 
         ctx.body = seat;
         
     }catch(e){
@@ -174,13 +171,12 @@ export const preferSeat = async(ctx:any) => {
 }
 
 export const ticketing = async(ctx:any) => {
-    logger.info('[POST]--------ticketing---------');
+    logger.info('[GET]--------ticketing---------');
 
     //TODO login check
     try{
 
         const { screen, seat, price } = ctx.request.body;
-        console.log('screen_no: ', screen, seat, price);
         
         const seatInfo = await Models.seat.findAll({
             raw: true,
@@ -194,7 +190,6 @@ export const ticketing = async(ctx:any) => {
                 ]
             }
         });
-        // console.log(seatInfo);
         if(!isValid.ticketing(seatInfo, price)){
             return;
         }
@@ -213,7 +208,6 @@ export const ticketing = async(ctx:any) => {
             user:'testUser',
             complete: false,
         })
-        console.log(issued);
 
         ctx.body = issued;
         
@@ -222,7 +216,7 @@ export const ticketing = async(ctx:any) => {
         ctx.response.status = e.status;
         ctx.body = e.msg;
     }finally{
-        logger.info('[POST-end]------ticketing-------');
+        logger.info('[GET-end]------ticketing-------');
         return;
     }
 }
@@ -232,7 +226,6 @@ export const ticketInfo = async(ctx:any) => {
 
     try{
         const { ticket } = ctx.request.query;
-        console.log(ticket)
         const ticketInfo = await Models.ticket.findOne({
             raw:true,
             attributes:['ticket_no','screen_no','user','complete','created_at'],
@@ -242,9 +235,8 @@ export const ticketInfo = async(ctx:any) => {
                 }
             }
         })
-        console.log(ticketInfo)
         if(!ticketInfo){
-            ctx.response.status = 400;
+            ctx.response.status = 204;
             return;
         }        
 
