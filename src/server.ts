@@ -1,6 +1,6 @@
 import logger from './logger'
 import app from './app'
-import models from './db/models';
+import models from './db/models'
 
 export const host = process.env.HOST || '127.0.0.1'
 export const port: number = Number.parseInt(process.env.PORT) || 5000
@@ -8,7 +8,7 @@ export const port: number = Number.parseInt(process.env.PORT) || 5000
 
 function start() {
   models.sequelize.sync(
-      // {force:true}
+      {force:true}
     ).then(()=>{
     console.log('sync()')
     app.listen(port, () => {
