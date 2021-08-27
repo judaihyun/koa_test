@@ -2,7 +2,6 @@
 const {
   Model
 } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
   class theater extends Model {
     /**
      * Helper method for defining associations.
@@ -13,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
+module.exports = (sequelize, DataTypes) => {
   theater.init({
     no: {
       type: DataTypes.INTEGER,

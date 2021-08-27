@@ -2,7 +2,6 @@
 const {
   Model
 } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
   class movie extends Model {
     /**
      * Helper method for defining associations.
@@ -13,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
+
+module.exports = (sequelize, DataTypes) => {
   movie.init({
     no: {
       type: DataTypes.INTEGER,
@@ -33,6 +34,5 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true,
     modelName: 'movie',
   });
-
   return movie;
 };
