@@ -18,7 +18,8 @@
     "removeComments": true,
     "sourceMap": true,
     "watch": false,
-    "lib": ["es2018", "esnext.asynciterable"]
+    "lib": ["es2018", "esnext.asynciterable"],
+    "allowJs": true
   },
   "include": [
     "./src"
