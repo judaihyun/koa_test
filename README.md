@@ -31,7 +31,7 @@ npm run start
 ## 환경
 [O] SQLite 사용 (storage 방식[X])<br>
 [O] 서버 구동 시마다 schema 초기화 및 기초 데이터 생성<br>
-[ ] Swagger UI<br>
+[O] Swagger UI<br>
 [O] 추가 DB -> screen(상영목록) 테이블 추가<br>
 [O] 비밀번호 base64 저장<br><br>
 ## API예외 처리
@@ -62,7 +62,7 @@ npm run start
 
 
 
-
+<br><br><br><br>
 # 기존 readme
 
 - 기능설명

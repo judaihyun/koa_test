@@ -12,7 +12,6 @@ ENV NODE_ENV=development
 WORKDIR /build
 
 COPY --from=base /base ./
-RUN npm install -g sqlite3
 RUN npm run build
 
 FROM node:current-alpine AS production
@@ -30,11 +29,12 @@ COPY --from=build /build/dist ./dist
 COPY --from=build /build/package*.json ./
 
 RUN npm install --only=production
+RUN npm install sqlite3
 
 
 EXPOSE 5000
 
-RUN chmod +x entry.sh
-RUN sh entry.sh
+# RUN chmod +x entry.sh
+# RUN sh entry.sh
 CMD npm run start
 
