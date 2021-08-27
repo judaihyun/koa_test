@@ -56,7 +56,8 @@ http://localhost:5000
 2. Swagger UI <br>
 -> JWT, cookie 관련 인증못하는 문제<br>
 ( https://github.com/swagger-api/swagger-js/issues/1163 ) (더 찾아보는중)<br>
--> 조회 부분은 response scheme까지 작성하였는데 나머지는 미작성되었습니다. 대신, [postman](https://github.com/judaihyun/koa_test/blob/develop/mycroft.postman_collection.json) 파일을 업로드합니다.<br>
+-> 조회 부분은 response scheme까지 작성하였는데 나머지는 미작성되었습니다.<br>
+대신, [postman](https://github.com/judaihyun/koa_test/blob/develop/mycroft.postman_collection.json) 파일을 업로드합니다.<br>
 3. docker <br>
 -> koa까지 실행되지만, scheme 초기화 기초 데이터 생성은 실패.<br>
 -> npm run start로 docker를 사용하지 않고 구동가능.<br>
