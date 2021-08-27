@@ -31,7 +31,6 @@ COPY --from=build /build/package*.json ./
 RUN npm install --only=production
 RUN npm install sqlite3
 
-
 EXPOSE 5000
 
 # RUN chmod +x entry.sh
