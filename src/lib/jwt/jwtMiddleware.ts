@@ -5,9 +5,8 @@ import { verifyToken } from './jwt';
 export const jwtMiddleware = async (ctx:any, next:any) => {
     logger.info('-------jwtMiddleware---------');
     const token = ctx.cookies.get('access_token');
-    logger.info('token ', token) 
     if(!token){
-        ctx.response.status = 403;
+        ctx.response.status = 401;
         ctx.body = 'Unauthorized';
         return;
     }
