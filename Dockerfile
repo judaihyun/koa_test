@@ -20,18 +20,14 @@ ENV NODE_ENV=development
 
 
 WORKDIR /app
+COPY swagger-config.yaml ./
 
 COPY --from=build /build/spec ./spec
 COPY --from=build /build/dist ./dist
 COPY --from=build /build/package*.json ./
 
 RUN npm install --only=production
-
-ENV DATABASE_URL="mysql://foobar:password@127.0.0.1:3306/mydatabase"
-ENV PORT=5000
-ENV JWT_SECRET="jwtsecret"
-ENV JWT_AUDIENCE="http://myapi/protected"
-ENV JWT_ISSUER="http://issuer"
+RUN npm install sqlite3
 
 EXPOSE 5000
 
